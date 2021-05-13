@@ -198,7 +198,7 @@
       inner.push([r0 * cos(theta), r0 * sin(theta), width / 2, 1]);
     }
     const upperFace = {
-      centroid: [0, 0, 0, 0],
+      centroid: [0, 0, width / 2, 0],
       normal: [0, 0, 1, 0],
       paths: [outer.reverse(), inner],
       color
