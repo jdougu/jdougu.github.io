@@ -258,6 +258,7 @@
   var projectionMatrix;
   var modelViewMatrix = translate(0, 0, -40);
   var wireframe = false;
+  var pointerPosition;
   function makeScene(theta) {
     let scene = [
       ...gear1.map((face) => transformFace(face, multiply(translate(-3, -2, 0), rotateAboutZ(theta)))),
@@ -315,6 +316,9 @@
     resize(canvas);
     window.addEventListener("resize", () => resize(canvas));
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("pointerdown", (ev) => pointerPosition = [ev.x, ev.y]);
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerup", () => pointerPosition = void 0);
     const context = canvas.getContext("2d", {alias: false});
     let mSeconds = Date.now();
     const fpsBuffer = [0];
@@ -338,7 +342,6 @@
     window.requestAnimationFrame(animate);
   });
   function handleKeyDown(ev) {
-    console.log(ev.key);
     switch (ev.key) {
       case "ArrowLeft":
         yRotation += rotationIncrement;
@@ -365,5 +368,14 @@
     canvas.style.height = height + "px";
     const h = height / width;
     projectionMatrix = frustum(-1, 1, -h, h, 5, 60);
+  }
+  function handlePointerMove(ev) {
+    if (pointerPosition) {
+      const deltaX = ev.x - pointerPosition[0];
+      const deltaY = ev.y - pointerPosition[1];
+      yRotation += deltaX / 200;
+      xRotation += deltaY / 200;
+      pointerPosition = [ev.x, ev.y];
+    }
   }
 })();
