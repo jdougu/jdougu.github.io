@@ -259,12 +259,16 @@
   var modelViewMatrix = translate(0, 0, -40);
   var wireframe = false;
   var pointerPosition;
+  var numberOfGears = 1;
   function makeScene(theta) {
-    let scene = [
-      ...gear1.map((face) => transformFace(face, multiply(translate(-3, -2, 0), rotateAboutZ(theta)))),
-      ...gear2.map((face) => transformFace(face, multiply(translate(3.1, -2, 0), rotateAboutZ(-2 * theta - 9)))),
-      ...gear3.map((face) => transformFace(face, multiply(translate(-3.1, 4.2, 0), rotateAboutZ(-2 * theta - 25))))
-    ];
+    let scene = [];
+    for (let i = 0; i < numberOfGears; i++) {
+      scene.push(...[
+        ...gear1.map((face) => transformFace(face, multiply(translate(-3, -2, i * -3), rotateAboutZ(theta)))),
+        ...gear2.map((face) => transformFace(face, multiply(translate(3.1, -2, i * -3), rotateAboutZ(-2 * theta - 9)))),
+        ...gear3.map((face) => transformFace(face, multiply(translate(-3.1, 4.2, i * -3), rotateAboutZ(-2 * theta - 25))))
+      ]);
+    }
     const a = multiplyAll(projectionMatrix, modelViewMatrix, rotateAboutX(xRotation), rotateAboutY(yRotation));
     const b = multiply(projectionMatrix, modelViewMatrix);
     projectedLightPosition = transform(b, lightPosition);
@@ -357,6 +361,14 @@
         break;
       case "w":
         wireframe = !wireframe;
+        break;
+      case "=":
+        numberOfGears++;
+        break;
+      case "-":
+        if (numberOfGears > 1) {
+          numberOfGears--;
+        }
         break;
     }
   }
