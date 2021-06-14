@@ -1,0 +1,29 @@
+$light-background: #eee;
+$light-foreground: #111;
+$light-link: #07a;
+
+$font-stack: sans;
+
+body {
+    background-color: $light-background;
+    color: $light-foreground;
+    font-family: $font-stack;
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 640px;
+    margin: 40px auto;
+    padding: 0 10px;
+}
+
+a {
+    color: $light-link;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1, h2, h3 {
+    line-height:1.2;
+}
