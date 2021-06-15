@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "jsx": "react-jsx",
+        "jsxImportSource": "preact",
+        "lib": ["es2020"],
+        "moduleResolution": "node",
+        "strict": true
+    }
+}
