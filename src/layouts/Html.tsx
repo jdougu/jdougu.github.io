@@ -15,6 +15,7 @@ export const Html = (props: Props) => {
                 <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <EmbeddedStyle fileName="./src/layouts/_style.scss" />
+                <link rel="stylesheet" href="/assets/katex.min.css" />
                 <title>{props.title}</title>
             </head>
             <body>

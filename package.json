@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "npx ts-node src/render.tsx",
-    "watch": "nodemon --watch 'src/pages/**' --ext '*' --exec 'ts-node src/render.tsx'"
+    "watch": "nodemon --watch 'src/**' --ext '*' --exec 'ts-node src/render.tsx'"
   },
   "dependencies": {
     "@types/katex": "^0.11.0",

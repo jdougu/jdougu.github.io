@@ -14,3 +14,21 @@ export const Tex = ({ children, inline }: Props) => {
     return inline ? (<span dangerouslySetInnerHTML={{ __html: html }}/>)
                   : (<div dangerouslySetInnerHTML={{ __html: html }}/>);
 }
+
+export const $ = (strings: TemplateStringsArray) => {
+    const options: KatexOptions = {
+        displayMode: false,
+        output: 'html',
+    };
+    const html = renderToString(strings.raw[0], options);
+    return <span dangerouslySetInnerHTML={{ __html: html }}></span>
+};
+
+export const $$ = (strings: TemplateStringsArray) => {
+    const options: KatexOptions = {
+        displayMode: true,
+        output: 'html',
+    };
+    const html = renderToString(strings.raw[0], options);
+    return <div dangerouslySetInnerHTML={{ __html: html }}></div>
+};
