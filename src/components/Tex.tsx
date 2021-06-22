@@ -32,3 +32,13 @@ export const $$ = (strings: TemplateStringsArray) => {
     const html = renderToString(strings.raw[0], options);
     return <div dangerouslySetInnerHTML={{ __html: html }}></div>
 };
+
+export const equation = (strings: TemplateStringsArray) => {
+    const options: KatexOptions = {
+        displayMode: true,
+        output: 'html',
+    };
+    const tex = '\\begin{equation}\n' + strings.raw[0] + '\\end{equation}\n';
+    const html = renderToString(tex, options);
+    return <div dangerouslySetInnerHTML={{ __html: html }}></div>
+};
