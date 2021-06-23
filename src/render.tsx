@@ -8,19 +8,13 @@ import { Html } from './layouts/Html';
 const SOURCE_DIR = resolve(process.cwd(), 'src/pages');
 const DEST_DIR = resolve(process.cwd(), 'docs');
 
-export interface Page {
-    component: () => JSXInternal.Element
-    subTitle?: string;
-    title: string;
-}
-
 getFiles(SOURCE_DIR).forEach(async (file) => {
 
     const destination = destinationPath(file);
 
-    if (extname(file) === '.tsx') {
+    if (basename(file) === 'index.tsx') {
         const module = await import(file);
-        if (module.default && module.default.component) {
+        if (module.default && typeof module.default === 'function') {
             const page = renderPage(module.default);
             mkdirSync(dirname(destination), { recursive: true });
             writeFileSync(destination, page);
@@ -41,10 +35,10 @@ function getFiles(directory: string): string[] {
     return Array.prototype.concat(...files);
 }
 
-function renderPage(page: Page) {
+function renderPage(Component: () => JSXInternal.Element) {
     const Page = () => (
-        <Html title={page.title}>
-            <page.component />
+        <Html title="jdudy">
+            <Component />
         </Html>
     );
     return '<!DOCTYPE html>\n' + render(<Page />, {}, { pretty: '  ' });
