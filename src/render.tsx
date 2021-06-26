@@ -1,3 +1,4 @@
+import { BuildOptions, buildSync } from 'esbuild';
 import { basename, dirname, extname, join, relative, resolve } from 'path';
 import render from 'preact-render-to-string';
 
@@ -17,7 +18,9 @@ getFiles(SOURCE_DIR).forEach(async (file) => {
         if (page) {
             writeFile(dest, page);
         }
-    } else if (basename(file)[0] !== '_') {
+    } else if (basename(file) === 'script.tsx') {
+        buildScript(file);
+    } else if (basename(file)[0] !== '_' && extname(file) !== '.tsx') {
         copyFile(file, dest);
     }
 
@@ -51,4 +54,18 @@ function destPath(file: string) {
     }
 
     return join(DEST_DIR, dirname(relative(SOURCE_DIR, file)), fileName);
+}
+
+function buildScript(file: string) {
+    const outFile= join(dirname(join(DEST_DIR, relative(SOURCE_DIR, file))), 'script.js');
+    const options: BuildOptions = {
+        bundle: true,
+        entryPoints: [file],
+        inject: ['./src/preact-shim.js'],
+        jsxFactory: 'h',
+        jsxFragment: 'Fragment',
+        minify: true,
+        outfile: outFile,
+    };
+    buildSync(options);
 }
