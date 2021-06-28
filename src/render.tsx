@@ -2,12 +2,16 @@ import { BuildOptions, buildSync } from 'esbuild';
 import { basename, dirname, extname, join, relative, resolve } from 'path';
 import render from 'preact-render-to-string';
 
-import { titleRegex } from './components/'
 import { Html } from './layouts/Html';
 import { copyFile, getFiles, writeFile } from './utils';
 
 const SOURCE_DIR = resolve(process.cwd(), 'src/pages');
 const DEST_DIR = resolve(process.cwd(), 'docs');
+
+export const pageData = {
+    title: 'jdudy',
+    katex: false,
+}
 
 getFiles(SOURCE_DIR).forEach(async (file) => {
 
@@ -29,14 +33,9 @@ getFiles(SOURCE_DIR).forEach(async (file) => {
 async function renderPage(pagePath: string) {
     const PageModule = await import(pagePath);
     if (PageModule.default && typeof PageModule.default === 'function') {
-        const renderedPage = render(<PageModule.default />);
-        const katex = /katex/.test(renderedPage);
-        const match = titleRegex.exec(renderedPage);
-        const title = (match && match[1] ? match[1] + ' \u2013 ' : '') + 'jdudy';
+        const renderedPage = render(<PageModule.default />, {}, { pretty: '  ' });
         const Page = () => (
-            <Html title={title} katex={katex}>
-                <PageModule.default />
-            </Html>
+            <Html title={pageData.title} katex={pageData.katex} html={renderedPage} />
         );
         return '<!DOCTYPE html>\n' + render(<Page />, {}, { pretty: '  ' });
     } else {

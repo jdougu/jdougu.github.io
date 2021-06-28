@@ -10,6 +10,7 @@ interface Props {
 }
 
 export const Hydrate = (props: Props) => {
+    writeScript(props.filename);
     return (
         <>
             <div id="hydrate">
@@ -31,7 +32,7 @@ function writeScript(filename: string) {
     const script = `
         import { hydrate } from 'preact';
         import { ${componentName} } from './${componentName}';
-        hydrate(<${componentName} />, document.getElementById('hydrate'));
+        hydrate(<${componentName} />, document.getElementById('hydrate')!);
     `;
     writeFile(join(dirname(filename), 'script.tsx'), script);
 }

@@ -1,11 +1,14 @@
 import { KatexOptions, renderToString } from 'katex';
 
+import { pageData } from '../render';
+
 interface Props {
     children: string;
     inline?: boolean;
 };
 
 export const Tex = ({ children, inline }: Props) => {
+    pageData.katex = true;
     const options: KatexOptions = {
         displayMode: !inline,
         output: 'html',
@@ -16,6 +19,7 @@ export const Tex = ({ children, inline }: Props) => {
 }
 
 export const $ = (strings: TemplateStringsArray) => {
+    pageData.katex = true;
     const options: KatexOptions = {
         displayMode: false,
         output: 'html',
@@ -25,6 +29,7 @@ export const $ = (strings: TemplateStringsArray) => {
 };
 
 export const $$ = (strings: TemplateStringsArray) => {
+    pageData.katex = true;
     const options: KatexOptions = {
         displayMode: true,
         output: 'html',
@@ -34,6 +39,7 @@ export const $$ = (strings: TemplateStringsArray) => {
 };
 
 export const equation = (strings: TemplateStringsArray) => {
+    pageData.katex = true;
     const options: KatexOptions = {
         displayMode: true,
         output: 'html',

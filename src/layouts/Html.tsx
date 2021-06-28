@@ -1,12 +1,10 @@
-import { ComponentChildren } from 'preact';
-
 import { EmbeddedStyle } from '../components/EmbeddedStyle';
 
 interface Props {
-    children?: ComponentChildren;
     katex?: boolean;
     subTitle?: string;
     title: string;
+    html: string;
 }
 
 export const Html = (props: Props) => {
@@ -20,9 +18,7 @@ export const Html = (props: Props) => {
                 <title>{props.title}</title>
             </head>
             <body>
-                <main>
-                    {props.children}
-                </main>
+                <main dangerouslySetInnerHTML={{__html: props.html}} />
             </body>
         </html>
     );
