@@ -1,8 +1,8 @@
 {
-  "name": "jdudy.github.io",
+  "name": "jdougu.github.io",
   "version": "0.0.0",
-  "repository": "https://github.com/jdudy/jdudy.github.io",
-  "author": "jdudy <jdudy@users.noreply.github.com>",
+  "repository": "https://github.com/jdougu/jdougu.github.io",
+  "author": "jdougu <jdougu@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
     "build": "npx ts-node src/render.tsx",

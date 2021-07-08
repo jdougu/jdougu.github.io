@@ -9,7 +9,7 @@ const SOURCE_DIR = resolve(process.cwd(), 'src/pages');
 const DEST_DIR = resolve(process.cwd(), 'docs');
 
 export const pageData = {
-    title: 'jdudy',
+    title: 'jdougu',
     katex: false,
 }
 
