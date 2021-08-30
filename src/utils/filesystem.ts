@@ -9,6 +9,11 @@ export function copyFile(src: string, dest: string) {
     copyFileSync(src, dest);
 }
 
+export function getDirectories(directory: string): string[] {
+    return readdirSync(directory, { withFileTypes: true })
+        .filter((e) => e.isDirectory()).map((d) => d.name);
+}
+
 /**
  * Get a recursive directory listing of absolute paths.
  */
