@@ -1,50 +1,29 @@
 import { KatexOptions, renderToString } from 'katex';
 
-import { pageData } from '../render';
-
-interface Props {
-    children: string;
-    inline?: boolean;
-};
-
-export const Tex = ({ children, inline }: Props) => {
-    pageData.katex = true;
-    const options: KatexOptions = {
-        displayMode: !inline,
-        output: 'html',
-    }
-    const html = renderToString(children, options);
-    return inline ? (<span dangerouslySetInnerHTML={{ __html: html }}/>)
-                  : (<div dangerouslySetInnerHTML={{ __html: html }}/>);
-}
-
 export const $ = (strings: TemplateStringsArray) => {
-    pageData.katex = true;
     const options: KatexOptions = {
         displayMode: false,
         output: 'html',
     };
     const html = renderToString(strings.raw[0], options);
-    return <span dangerouslySetInnerHTML={{ __html: html }}></span>
+    return <span data-katex dangerouslySetInnerHTML={{ __html: html }} />
 };
 
 export const $$ = (strings: TemplateStringsArray) => {
-    pageData.katex = true;
     const options: KatexOptions = {
         displayMode: true,
         output: 'html',
     };
     const html = renderToString(strings.raw[0], options);
-    return <div dangerouslySetInnerHTML={{ __html: html }}></div>
+    return <div data-katex dangerouslySetInnerHTML={{ __html: html }} />
 };
 
 export const equation = (strings: TemplateStringsArray) => {
-    pageData.katex = true;
     const options: KatexOptions = {
         displayMode: true,
         output: 'html',
     };
     const tex = '\\begin{equation}\n' + strings.raw[0] + '\\end{equation}\n';
     const html = renderToString(tex, options);
-    return <div dangerouslySetInnerHTML={{ __html: html }}></div>
+    return <div data-katex dangerouslySetInnerHTML={{ __html: html }} />
 };

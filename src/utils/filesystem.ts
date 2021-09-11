@@ -10,6 +10,15 @@ export function copyFile(src: string, dest: string) {
 }
 
 /**
+ * Get the list of directories in `directory`.
+ */
+export function getDirectories(directory: string): string[] {
+    return readdirSync(directory, { withFileTypes: true })
+        .filter((e) => e.isDirectory())
+        .map((d) => d.name);
+}
+
+/**
  * Get a recursive directory listing of absolute paths.
  */
 export function getFiles(directory: string): string[] {
