@@ -1,10 +1,11 @@
+import { ComponentChildren } from 'preact'
+
 import { EmbeddedStyle } from '../components/EmbeddedStyle';
 
 interface Props {
+    children: ComponentChildren;
     katex?: boolean;
-    subTitle?: string;
     title: string;
-    html: string;
 }
 
 export const Html = (props: Props) => {
@@ -14,11 +15,11 @@ export const Html = (props: Props) => {
                 <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <EmbeddedStyle fileName="./src/layouts/_style.scss" />
-                {props.katex ? <link rel="stylesheet" href="/assets/katex.min.css" /> : null}
+                {props.katex && <link rel="stylesheet" href="/assets/katex.min.css" />}
                 <title>{props.title}</title>
             </head>
             <body>
-                <main dangerouslySetInnerHTML={{__html: props.html}} />
+                <main>{props.children}</main>
             </body>
         </html>
     );

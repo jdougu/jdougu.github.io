@@ -9,9 +9,13 @@ export function copyFile(src: string, dest: string) {
     copyFileSync(src, dest);
 }
 
+/**
+ * Get the list of directories in `directory`.
+ */
 export function getDirectories(directory: string): string[] {
     return readdirSync(directory, { withFileTypes: true })
-        .filter((e) => e.isDirectory()).map((d) => d.name);
+        .filter((e) => e.isDirectory())
+        .map((d) => d.name);
 }
 
 /**

@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { ComponentChildren } from "preact";
+import { ComponentChildren } from 'preact';
 
 interface Props {
     children: ComponentChildren

@@ -1,8 +1,7 @@
-import { pageData } from '../render';
+export const Title = (props: { children: string }) => null;
 
-export const Title = (props: { children: string }) => {
-    pageData.title = props.children + ' \u2013 jdudy';
+/*export const Title = (props: { children: string }) => {
     return (
-        <h1 class="title">{props.children}</h1>
+        <>{props.children}</>
     );
-}
+}*/
