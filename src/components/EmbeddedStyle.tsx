@@ -1,15 +1,15 @@
-import { Options, renderSync } from 'sass';
+import { compile, Options } from 'sass';
 
 interface Props {
-    fileName: string
+    fileName: string,
 }
 
 export const EmbeddedStyle = ({ fileName }: Props) => {
-    const options: Options = {
-        file: fileName,
-        outputStyle: 'compressed',
+    const options: Options<'sync'> = {
+        style: 'compressed',
     };
-    const style = renderSync(options).css.toString();
+    const result = compile(fileName, options);
+    const style = result.css;
     return (
         <style>{style}</style>
     );
