@@ -1,4 +1,3 @@
-//import { BuildOptions, buildSync } from 'esbuild';
 import { join, resolve } from 'path';
 import render from 'preact-render-to-string';
 import { JSXInternal } from 'preact/src/jsx';
