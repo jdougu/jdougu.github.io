@@ -5,7 +5,7 @@
   "author": "jdougu <jdougu@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
-    "build": "npx ts-node src/render.tsx",
+    "build": "npx ts-node builder/build.tsx",
     "watch": "nodemon --watch 'src/**' --ext '*' --ignore 'src/**/script.tsx' --exec 'ts-node src/render.tsx'"
   },
   "dependencies": {
