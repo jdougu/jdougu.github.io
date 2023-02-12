@@ -1,3 +1,3 @@
-import { directories } from './pages';
+import { pages } from './pages';
 
-console.log(directories);
+console.log(pages);

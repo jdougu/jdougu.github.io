@@ -5,9 +5,6 @@
         "jsxImportSource": "preact",
         "lib": ["es2020"],
         "moduleResolution": "node",
-        "paths": {
-            "components": ["./builder/components"]
-        },
         "strict": true,
     }
 }

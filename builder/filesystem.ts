@@ -1,4 +1,4 @@
-import { copyFileSync, mkdirSync, readdirSync, writeFileSync } from 'fs';
+import { copyFileSync, mkdirSync, readdirSync, statSync, writeFileSync } from 'fs';
 import { dirname, resolve } from 'path';
 
 /**
@@ -28,6 +28,14 @@ export function getFiles(directory: string): string[] {
         return dirEntry.isDirectory() ? getFiles(path) : path;
     });
     return Array.prototype.concat(...files);
+}
+
+/**
+ * Does `directory` contain `filename`.
+ */
+export function hasFile(directory: string, filename: string) {
+    const stats = statSync(resolve(directory, filename), { throwIfNoEntry: false });
+    return stats ? true : false;
 }
 
 /**
