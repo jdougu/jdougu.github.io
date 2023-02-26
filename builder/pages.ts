@@ -1,7 +1,7 @@
 import { resolve } from 'path';
-import { JSXInternal } from 'preact/src/jsx';
 
 import { getDirectories, hasFile } from './filesystem';
+import { Page } from './Page';
 
 const PAGES_DIRECTORY = resolve(process.cwd(), 'pages');
 
@@ -10,21 +10,17 @@ const directories = getDirectories(PAGES_DIRECTORY).filter((d) => {
     return hasFile(path, 'index.tsx');
 });
 
-export const pages = directories.map((d) => {
-    const directory = resolve(PAGES_DIRECTORY, d);
-    const index = resolve(directory, 'index.tsx');
+const pagePromises: Promise<Page>[] = [];
 
-    return {
-        directory,
-        index,
-        page: importPage(index),
+directories.forEach(async (d) => {
+    const directory = resolve(PAGES_DIRECTORY, d);
+
+    try {
+        const page = Page.import(directory);
+        pagePromises.push(page);
+    } catch (error) {
+        console.error((error as Error).message);
     }
 });
 
-async function importPage(path: string) {
-    const page = await import(path);
-    if (!page.default || typeof page.default !== 'function') {
-        throw new Error(`Imported page ${path} has incorrect default`);
-    }
-    return page.default as () => JSXInternal.Element;
-}
+export const pages = Promise.all(pagePromises);

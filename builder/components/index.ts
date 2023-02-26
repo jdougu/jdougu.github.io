@@ -1,2 +1,2 @@
-export * from './Date';
+export * from './PublishedDate';
 export * from './Title';

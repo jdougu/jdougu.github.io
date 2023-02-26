@@ -2,7 +2,7 @@ import { copyFileSync, mkdirSync, readdirSync, statSync, writeFileSync } from 'f
 import { dirname, resolve } from 'path';
 
 /**
- * Copy file synchronously, make directories and overwrite if needed.
+ * Copy file synchronously, make directories, and overwrite if needed.
  */
 export function copyFile(src: string, dest: string) {
     mkdirSync(dirname(dest), { recursive: true });
