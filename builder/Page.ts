@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import render from 'preact-render-to-string';
 import { JSXInternal } from 'preact/src/jsx';
 
-import { findNodeByFunctionName } from './preact';
+import { findNodeByFunctionName } from './utils';
 
 
 export class Page {

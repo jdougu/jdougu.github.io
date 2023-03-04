@@ -1,6 +1,6 @@
 import { resolve } from 'path';
 
-import { getDirectories, hasFile } from './filesystem';
+import { getDirectories, hasFile } from './utils';
 import { Page } from './Page';
 
 const PAGES_DIRECTORY = resolve(process.cwd(), 'pages');
