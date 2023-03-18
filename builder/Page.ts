@@ -5,7 +5,6 @@ import { JSXInternal } from 'preact/src/jsx';
 
 import { findNodeByFunctionName } from './utils';
 
-
 export class Page {
 
     indexFilePath!: string;
