@@ -28,8 +28,9 @@ export class Page {
 
         page.title = findNodeByFunctionName(page.node, 'Title')?.props.children as string;
 
+        // TODO: detect if maths used
+
         const dateString = findNodeByFunctionName(page.node, 'PublishedDate')?.props.children as string;
-        console.log(dateString);
         page.date = new Date(dateString);
 
         return page;

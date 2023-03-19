@@ -6,7 +6,7 @@ export const $ = (strings: TemplateStringsArray) => {
         output: 'mathml',
     };
     const mathML = renderToString(strings.raw[0], options);
-    return <span dangerouslySetInnerHTML={{ __html: strip(mathML) }} />
+    return <span class="maths" dangerouslySetInnerHTML={{ __html: strip(mathML) }} />
 };
 
 function strip(mathML: string) {
