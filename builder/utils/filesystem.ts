@@ -31,6 +31,14 @@ export function getFiles(directory: string): string[] {
 }
 
 /**
+ * Does 'path' exist.
+ */
+export function fileExists(path: string) {
+    const stats = statSync(path, { throwIfNoEntry: false });
+    return stats ? true : false;
+}
+
+/**
  * Does `directory` contain `filename`.
  */
 export function hasFile(directory: string, filename: string) {

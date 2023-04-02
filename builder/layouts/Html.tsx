@@ -1,6 +1,6 @@
 import { ComponentChildren } from 'preact'
 
-import { EmbeddedStyle } from '../components/EmbeddedStyle';
+import { EmbeddedStyle } from '../components/';
 
 interface Props {
     children: ComponentChildren;

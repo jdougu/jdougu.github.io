@@ -1,9 +1,8 @@
 import { statSync } from 'fs';
 import { resolve } from 'path';
-import render from 'preact-render-to-string';
 import { JSXInternal } from 'preact/src/jsx';
 
-import { findNodeByFunctionName } from './utils';
+import { fileExists, findNodeByFunctionName, getDirectories } from './utils';
 
 export class Page {
 
@@ -16,35 +15,45 @@ export class Page {
 
     private constructor() { }
 
-    static async import(directory: string) {
+    static async importPages(directory: string) {
+        const pagePaths = getDirectories(directory)
+            .filter((d) => fileExists(resolve(directory, d, 'index.tsx')))
+            .map((d) => resolve(directory, d, 'index.tsx'));
+
+        const pagePromises: Promise<Page>[] = [];
+
+        pagePaths.forEach((p) => {
+            try {
+                const page = Page.importPage(p);
+                pagePromises.push(page);
+            } catch (error) {
+                console.error((error as Error).message);
+            }
+        });
+
+        return Promise.all(pagePromises);
+    }
+
+    private static async importPage(path: string) {
         const page = new Page();
-        page.indexFilePath = resolve(directory, 'index.tsx');
-        if (statSync(page.indexFilePath, { throwIfNoEntry: false }) === undefined) {
-            throw new Error(`index.tsx not found in directory ${page.indexFilePath}`);
-        }
 
-        page.pageElement = await importPage(page.indexFilePath);
+        page.indexFilePath = path;
+        page.pageElement = await Page.dynamicImportPage(page.indexFilePath);
         page.node = page.pageElement();
-
         page.title = findNodeByFunctionName(page.node, 'Title')?.props.children as string;
-
-        // TODO: detect if maths used
-
         const dateString = findNodeByFunctionName(page.node, 'PublishedDate')?.props.children as string;
         page.date = new Date(dateString);
 
         return page;
     }
 
-    renderToString() {
-        return render(this.node, { }, { pretty: '  '});
+    private static async dynamicImportPage(path: string) {
+        const page = await import(path);
+        if (!page.default || typeof page.default !== 'function') {
+            throw new Error(`Imported page ${path} has incorrect default`);
+        }
+        return page.default as () => JSXInternal.Element;
     }
 }
 
-async function importPage(path: string) {
-    const page = await import(path);
-    if (!page.default || typeof page.default !== 'function') {
-        throw new Error(`Imported page ${path} has incorrect default`);
-    }
-    return page.default as () => JSXInternal.Element;
-}
+
