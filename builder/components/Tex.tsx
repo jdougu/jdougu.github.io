@@ -6,12 +6,26 @@ export const $ = (strings: TemplateStringsArray) => {
         output: 'mathml',
     };
     const mathML = renderToString(strings.raw[0], options);
-    return <span class="maths" dangerouslySetInnerHTML={{ __html: strip(mathML) }} />
+    // @ts-ignore
+    return <math dangerouslySetInnerHTML={{ __html: strip(mathML) }} />
+};
+
+export const $$ = (strings: TemplateStringsArray) => {
+    const options: KatexOptions = {
+        displayMode: true,
+        output: 'mathml',
+    };
+    const mathML = renderToString(strings.raw[0], options);
+    // @ts-ignore
+    return <math display="block" dangerouslySetInnerHTML={{ __html: strip(mathML) }} />;
 };
 
 function strip(mathML: string) {
     const spanRegEx = /<[\/]?span[^>]*>/g;
     mathML = mathML.replace(spanRegEx, '');
+
+    const mathRegEx = /<[\/]?math[^>]*>/g;
+    mathML = mathML.replace(mathRegEx, '');
 
     const semanticsRegEx = /<[\/]?semantics[^>]*>/g;
     mathML = mathML.replace(semanticsRegEx, '');
