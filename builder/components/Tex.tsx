@@ -20,6 +20,17 @@ export const $$ = (strings: TemplateStringsArray) => {
     return <math display="block" dangerouslySetInnerHTML={{ __html: strip(mathML) }} />;
 };
 
+export const equation = (strings: TemplateStringsArray) => {
+    const options: KatexOptions = {
+        displayMode: true,
+        output: 'mathml',
+    };
+    const tex = '\\begin{equation}\n' + strings.raw[0] + '\\end{equation}\n';
+    const mathml = renderToString(tex, options);
+    // @ts-ignore
+    return <math display="block" dangerouslySetInnerHTML={{ __html: strip(mathml) }} />
+};
+
 function strip(mathML: string) {
     const spanRegEx = /<[\/]?span[^>]*>/g;
     mathML = mathML.replace(spanRegEx, '');
