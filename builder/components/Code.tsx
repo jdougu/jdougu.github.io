@@ -1,9 +1,9 @@
 import { removeLeadingIndent, trimBlankLines } from '../utils';
 
-export const Code = (props: { children: string }) => {
+export const code = (strings: TemplateStringsArray) => {
     return (
         <div>
-            {...preLines(props.children)}
+            {...preLines(strings.raw[0])}
         </div>
     );
 };
